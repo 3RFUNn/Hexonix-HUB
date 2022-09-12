@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class Coordinate : MonoBehaviour
 {
     [SerializeField] private Vector2Int gridSize;
-    [SerializeField] private Tilemap Tilemap;
+    [SerializeField] public Tilemap Tilemap;
     [SerializeField] private Tile cells;
     [SerializeField] private GridBoard bgBoardOBJ;
     [SerializeField] public GridBoard[,] grid;
@@ -37,6 +37,10 @@ public class Coordinate : MonoBehaviour
         }
     }
 
+    public Vector3 GetGridPos(Vector3 pos)
+    {
+        return Tilemap.GetCellCenterWorld(Tilemap.WorldToCell(pos));
+    }
     // Update is called once per frame
     void Update()
     {

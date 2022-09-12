@@ -8,5 +8,7 @@ using UnityEngine;
 public class PieceData : ScriptableObject
 {
     public Vector2[] data;
+    public float weight = 1;
+    
     
 }
