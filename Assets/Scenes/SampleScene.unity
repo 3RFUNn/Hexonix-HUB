@@ -521,6 +521,7 @@ MonoBehaviour:
   <Placable>k__BackingField: 0
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
+  <Transform>k__BackingField: {fileID: 0}
 --- !u!212 &639263321
 SpriteRenderer:
   m_ObjectHideFlags: 0

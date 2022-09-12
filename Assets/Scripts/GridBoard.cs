@@ -9,7 +9,7 @@ public class GridBoard : MonoBehaviour
     [field:SerializeField] public int X { get;private set; }
     [field:SerializeField] public int Y { get;private set; }
     [field:SerializeField] public Transform Transform { get;private set; }
-    [field: SerializeField] public bool IsFull=> Child!=null;
+    [SerializeField] public bool IsFull=> Child!=null;
     public Transform Child { get
         {
             return _child;
@@ -30,17 +30,5 @@ public class GridBoard : MonoBehaviour
         X = x;
         Y = y;
         Transform = transform;
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
