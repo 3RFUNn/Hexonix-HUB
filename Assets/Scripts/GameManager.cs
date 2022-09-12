@@ -6,24 +6,22 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] private PieceHolder Piece;
+    [SerializeField] private PieceHolder ph;
     [SerializeField] private PieceData Data;
-    [SerializeField] private PieceDatabase database;
-    [SerializeField] private Coordinate grid;
+    [SerializeField] public Coordinate coordinate;
+    
+    
 
     private void Awake()
     {
         Instance = this;
+        ph.Setup(Data);
     }
 
-    public PieceHolder GetPiece()
-    {
-        var g = Instantiate(Piece);
-        var data = database.GetData();
-        g.Setup(data,grid.Tilemap);
-
-        return g;
-    }
+    // public PieceHolder GetPiece()
+    // {
+    //     
+    // }
    
     void Start()
     {
