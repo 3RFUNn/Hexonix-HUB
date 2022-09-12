@@ -10,6 +10,7 @@ public class PieceDatabase : ScriptableObject
 
     void Setup()
     {
+        
         for (int i = 0; i < datas.Length; i++)
         {
             totalweight += datas[i].weight;
@@ -18,7 +19,10 @@ public class PieceDatabase : ScriptableObject
         datas = datas.OrderBy(a => a.weight).ToArray();
     }
 
-    // public PieceData GetData()
-    // {
-    // }
+    public PieceData GetData()
+    {
+        return datas[0];
+
+
+    }
 }
