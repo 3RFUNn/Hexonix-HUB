@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ph: {fileID: 1745741895}
-  Data: {fileID: 11400000, guid: f861816e423f14e4e89f72d004be61b7, type: 2}
+  Data: {fileID: 11400000, guid: ffdf14e0d2922ea40b43fa934af3a0bc, type: 2}
 --- !u!1 &1745741894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac56a4f581c8ec47bfb5db8606cd365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: f861816e423f14e4e89f72d004be61b7, type: 2}
+  data: {fileID: 11400000, guid: ffdf14e0d2922ea40b43fa934af3a0bc, type: 2}
   tm: {fileID: 1265027589}
   piecePrefab: {fileID: 4461115284954775788, guid: 51fa24e1c1114bd48bd3fe8739c0405d, type: 3}
   parent: {fileID: 1452108011}
