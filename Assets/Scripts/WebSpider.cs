@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 public class WebSpider : MonoBehaviour
 {
     // [SerializeField] private Tilemap start;
@@ -11,7 +9,7 @@ public class WebSpider : MonoBehaviour
     public GridBoard[] FindMatches()
     {
         finalRes=new List<GridBoard> ();
-        GridBoard start = GameManager.Instance.coordinate.grid[2, 0];
+        GridBoard start = GameManager.Instance.grid.grid[2, 0];
         List<GridBoard> results = new List<GridBoard>();
         results = GetVerticals(start);
         tmp2=new List<GridBoard>();
@@ -118,52 +116,52 @@ public class WebSpider : MonoBehaviour
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y+1];
+            return GameManager.Instance.grid.grid[x.X, x.Y+1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X + 1, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X + 1, x.Y + 1];
         }
     }
     public static GridBoard FindTheRight(GridBoard x)
     {
-        return GameManager.Instance.coordinate.grid[x.X + 1, x.Y];
+        return GameManager.Instance.grid.grid[x.X + 1, x.Y];
     }
     public static GridBoard FindTheRightDown(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y - 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X+1, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X+1, x.Y - 1];
         }
     }
     public static GridBoard FindTheLeftTop(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X - 1, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X - 1, x.Y + 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y + 1];
         }
     }
     public static GridBoard FindTheLeft(GridBoard x)
     {
-        return GameManager.Instance.coordinate.grid[x.X - 1, x.Y];
+        return GameManager.Instance.grid.grid[x.X - 1, x.Y];
     }
     public static GridBoard FindTheLeftDown(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X - 1, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X - 1, x.Y - 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y - 1];
         }
     }
 }
