@@ -13,8 +13,7 @@ public class WebSpider : MonoBehaviour
         finalRes=new List<GridBoard> ();
         GridBoard start = GameManager.Instance.coordinate.grid[2, 0];
         List<GridBoard> results = new List<GridBoard>();
-        List<GridBoard> tmp = GetVerticals(start);
-        results.AddRange(tmp);
+        results = GetVerticals(start);
         tmp2=new List<GridBoard>();
         for(int i = 0; i < results.Count; i++)
         {
@@ -24,10 +23,7 @@ public class WebSpider : MonoBehaviour
         {
             FindResultsOfFunc(FindTheLeftTop, results[i]);
         }
-        results.Clear();
-        GridBoard end;
-        tmp = GetHorizontalsLeft(start, out end);
-        results.AddRange(tmp);
+        results = GetHorizontalsLeft(start, out GridBoard end);
         for (int i = 0; i < results.Count; i++)
         {
 
@@ -38,9 +34,7 @@ public class WebSpider : MonoBehaviour
 
             FindResultsOfFunc(FindTheTopRight, results[i]);
         }
-        results.Clear();
-        tmp = GetHorizontalsRight(end);
-        results.AddRange(tmp);
+        results = GetHorizontalsRight(end);
         for (int i = 0; i < results.Count; i++)
         {
             FindResultsOfFunc(FindTheRight, results[i]);
@@ -49,7 +43,6 @@ public class WebSpider : MonoBehaviour
         {
             FindResultsOfFunc(FindTheRightDown, results[i]);
         }
-        results.Clear();
         Dictionary<GridBoard, bool> dic = new Dictionary<GridBoard, bool>();
         List<GridBoard> theRealFinalResults = new List<GridBoard>();
         for (int i = 0; i < finalRes.Count; i++)
@@ -64,7 +57,7 @@ public class WebSpider : MonoBehaviour
     public void FindResultsOfFunc(Func<GridBoard, GridBoard> myMethodName, GridBoard currentGrid)
     {
         bool found = true;
-        while (!currentGrid.Placable)
+        while (currentGrid.Placable)
         {
             if (!currentGrid.IsFull)
             {
@@ -138,18 +131,17 @@ public class WebSpider : MonoBehaviour
     }
     public static GridBoard FindTheRightDown(GridBoard x)
     {
-        if (x.Y % 2 == 1)
+        if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X + 1, x.Y - 1];
+            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
+            return GameManager.Instance.coordinate.grid[x.X+1, x.Y - 1];
         }
     }
     public static GridBoard FindTheLeftTop(GridBoard x)
     {
-
         if (x.Y % 2 == 0)
         {
             return GameManager.Instance.coordinate.grid[x.X - 1, x.Y + 1];
