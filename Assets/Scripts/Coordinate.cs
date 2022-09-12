@@ -14,13 +14,13 @@ public class Coordinate : MonoBehaviour
     [SerializeField] private Tilemap Tilemap;
     [SerializeField] private Tile cells;
     [SerializeField] private GridBoard bgBoardOBJ;
-    [SerializeField] private GridBoard[,] placable;
+    [SerializeField] public GridBoard[,] grid;
     [SerializeField] private GameObject Parent;
     [SerializeField] private GameObject g;
     
     private void Start()
     {
-        placable = new GridBoard[gridSize.x, gridSize.y];
+        grid = new GridBoard[gridSize.x, gridSize.y];
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)

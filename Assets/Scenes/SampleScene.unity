@@ -521,6 +521,7 @@ MonoBehaviour:
   <Placable>k__BackingField: 0
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
+  <IsFull>k__BackingField: 0
 --- !u!212 &639263321
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -746,7 +747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265027586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1591,6 +1592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ph: {fileID: 1745741895}
   Data: {fileID: 11400000, guid: f861816e423f14e4e89f72d004be61b7, type: 2}
+  coordinate: {fileID: 0}
 --- !u!1 &1745741894
 GameObject:
   m_ObjectHideFlags: 0
