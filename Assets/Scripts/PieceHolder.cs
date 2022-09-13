@@ -6,15 +6,12 @@ using UnityEngine.UIElements;
 
 public class PieceHolder : MonoBehaviour
 {
-
-    [SerializeField] private GameObject piecePrefab;
-
-    private SpriteRenderer[] shapes;
+    public SpriteRenderer[] shapes;
     private Transform shape;
     private Tilemap tm;
     public PieceData data;
     // Start is called before the first frame update
-    public void Setup(PieceData data,Tilemap tilemap)
+    public void Setup(PieceData data,Tilemap tilemap,GameObject piecePrefab)
     {
         this.data = data;
         tm = tilemap;
