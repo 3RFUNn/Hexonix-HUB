@@ -18,16 +18,18 @@ public class PlaceHolder : MonoBehaviour
     private void Start()
     {
         piece = GameManager.Instance.GetPiece();
-        piece.transform.SetParent(transform);
-        piece.transform.localPosition=Vector3.zero;
+        Transform transform1;
+        (transform1 = piece.transform).SetParent(transform);
+        transform1.localPosition=Vector3.zero;
     }
 
     private void Update()
     {
         if (!isDragging)
             return;
-        piece.transform.position =
-            Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
+        piece.transform.position = GetMousePos() + _dragOffset;
+            //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
+            
     }
 
     void OnMouseDown()
@@ -38,8 +40,13 @@ public class PlaceHolder : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (isDragging)
-            isDragging = false;
+        if (!isDragging)
+        {
+            return;
+        }
+
+        isDragging = false;
+        piece.transform.localPosition= Vector3.zero;
     }
 
     Vector3 GetMousePos() {
