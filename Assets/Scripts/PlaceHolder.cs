@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlaceHolder : MonoBehaviour
 {
+    public static Action<PlaceHolder>OnClicked=delegate(PlaceHolder holder) {  };
+    public static Action<PlaceHolder>OnClickRelease=delegate(PlaceHolder holder) {  };
     private Vector3 _dragOffset;
     private Camera _cam;
-
+    private Tilemap tm;
     private PieceHolder piece;
     private bool isDragging;
     void Awake() {
@@ -20,21 +23,24 @@ public class PlaceHolder : MonoBehaviour
         Transform transform1;
         (transform1 = piece.transform).SetParent(transform);
         transform1.localPosition=Vector3.zero;
+        tm = GameManager.Instance.tileMap;
     }
 
     private void Update()
     {
         if (!isDragging)
             return;
-        piece.transform.position = GetMousePos() + _dragOffset;
+        Transform transform1;
+        (transform1 = piece.transform).position = GetMousePos() + _dragOffset;
             //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
-            
+       Debug.Log(tm.WorldToCell(piece.transform.position)); 
     }
 
     void OnMouseDown()
     {
         isDragging = true;
         _dragOffset = transform.position - GetMousePos();
+        OnClicked(this);
     }
 
     private void OnMouseUp()
@@ -46,6 +52,7 @@ public class PlaceHolder : MonoBehaviour
 
         isDragging = false;
         piece.transform.localPosition= Vector3.zero;
+        OnClickRelease(this);
     }
 
     Vector3 GetMousePos() {

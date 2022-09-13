@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PieceHolder Piece;
     [SerializeField] private PieceDatabase database;
     [SerializeField] public Coordinate grid;
+    public Tilemap tileMap;
 
     private void Awake()
     {
