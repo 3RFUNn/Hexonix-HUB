@@ -8,10 +8,10 @@ public class PlaceHolder : MonoBehaviour
 {
     public static Action<PlaceHolder>OnClicked=delegate(PlaceHolder holder) {  };
     public static Action<PlaceHolder>OnClickRelease=delegate(PlaceHolder holder) {  };
+    public PieceHolder piece;
     private Vector3 _dragOffset;
     private Camera _cam;
     private Tilemap tm;
-    private PieceHolder piece;
     private bool isDragging;
     void Awake() {
         _cam = Camera.main;
@@ -33,7 +33,6 @@ public class PlaceHolder : MonoBehaviour
         Transform transform1;
         (transform1 = piece.transform).position = GetMousePos() + _dragOffset;
             //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
-       Debug.Log(tm.WorldToCell(piece.transform.position)); 
     }
 
     void OnMouseDown()
@@ -51,8 +50,26 @@ public class PlaceHolder : MonoBehaviour
         }
 
         isDragging = false;
-        piece.transform.localPosition= Vector3.zero;
-        OnClickRelease(this);
+        var gg = CheckPiecePlacement(piece,
+            GameManager.Instance.grid.WorldPosToGridboard(piece.shapes[0].transform.position));
+        if (gg)
+        {
+            foreach (var VARIABLE in piece.shapes)
+            {
+                var g = GameManager.Instance.grid.WorldPosToGridboard(VARIABLE.transform.position);
+                g.Child = VARIABLE.transform.parent;
+            }
+            Destroy(piece.gameObject);
+            piece = GameManager.Instance.GetPiece();
+        }
+        else
+        {
+            piece.transform.localPosition= Vector3.zero;
+            OnClickRelease(this);
+        }
+
+        Debug.Log(gg);
+
     }
 
     Vector3 GetMousePos() {
@@ -62,30 +79,35 @@ public class PlaceHolder : MonoBehaviour
     }
     public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
     {
+        Debug.Log(g.X + " " + g.Y);
         Vector2[] x = p.data.data;
         for(int i = 0; i < x.Length; i++)
         {
-            GridBoard gg;
+            Debug.Log(g.X + " " + g.Y);
+            GridBoard gg=null;
+            bool condition = !g.IsFull && g.Placable;
             if (x[i].Equals(new Vector2(0,0)))
             {
-                if (!g.IsFull)
+                if (condition)
                     return false;
             }
             if (g.Y % 2 == 0)
             {
+                condition = !gg.IsFull && gg.Placable;
                 if (x[i].Equals(new Vector2(0, 1)))
                 {
                     gg = WebSpider.FindTheTopRight(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
                     g = gg;
-                }
+                }                
+
                 if (x[i].Equals(new Vector2(1, 0)))
                 {
                     gg = WebSpider.FindTheRight(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -94,7 +116,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(0, -1)))
                 {
                     gg = WebSpider.FindTheRightDown(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -103,7 +125,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(-1, 1)))
                 {
                     gg = WebSpider.FindTheLeftTop(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -112,7 +134,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(-1, 0)))
                 {
                     gg = WebSpider.FindTheLeft(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -121,7 +143,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(-1, -1)))
                 {
                     gg = WebSpider.FindTheLeftDown(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -133,7 +155,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(1, 1)))
                 {
                     gg = WebSpider.FindTheTopRight(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -142,7 +164,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(1, 0)))
                 {
                     gg = WebSpider.FindTheRight(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -151,7 +173,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(1, -1)))
                 {
                     gg = WebSpider.FindTheLeftDown(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -160,7 +182,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(0, 1)))
                 {
                     gg = WebSpider.FindTheLeftTop(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -169,7 +191,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(-1, 0)))
                 {
                     gg = WebSpider.FindTheLeft(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
@@ -178,7 +200,7 @@ public class PlaceHolder : MonoBehaviour
                 if (x[i].Equals(new Vector2(0, -1)))
                 {
                     gg = WebSpider.FindTheLeftDown(g);
-                    if (!gg.IsFull)
+                    if (condition)
                     {
                         return false;
                     }
