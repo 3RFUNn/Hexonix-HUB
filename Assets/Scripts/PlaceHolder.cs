@@ -56,7 +56,104 @@ public class PlaceHolder : MonoBehaviour
     public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
     {
         Vector2[] x = p.data.data;
-        
+        for(int i = 0; i < x.Length; i++)
+        {
+            if (x[i]==new Vector2(0,0))
+            {
+                if (!g.IsFull)
+                    return false;
+            }
+            if (g.Y % 2 == 0)
+            {
+                if (x[i]==new Vector2(0, 1))
+                {
+                    if (!WebSpider.FindTheTopRight(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(1, 0))
+                {
+                    if (!WebSpider.FindTheRight(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(0, -1))
+                {
+                    if (!WebSpider.FindTheRightDown(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(-1, 1))
+                {
+                    if (!WebSpider.FindTheLeftTop(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(-1, 0))
+                {
+                    if (!WebSpider.FindTheLeft(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(-1, -1))
+                {
+                    if (!WebSpider.FindTheLeftDown(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if (x[i] == new Vector2(1, 1))
+                {
+                    if (!WebSpider.FindTheTopRight(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(1, 0))
+                {
+                    if (!WebSpider.FindTheRight(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(1, -1))
+                {
+                    if (!WebSpider.FindTheLeftDown(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(0, 1))
+                {
+                    if (!WebSpider.FindTheLeftTop(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(-1, 0))
+                {
+                    if (!WebSpider.FindTheLeft(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+                if (x[i] == new Vector2(0, -1))
+                {
+                    if (!WebSpider.FindTheLeftDown(g).IsFull)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 }
