@@ -54,8 +54,10 @@ public class PlaceHolder : MonoBehaviour
         mousePos.z = 0;
         return mousePos;
     }
-/*  public bool CheckPiecePlacement(PieceHolder p)
+    public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
     {
-
-    }*/
+        Vector2[] x = p.data.data;
+        
+        return true;
+    }
 }

@@ -12,7 +12,7 @@ public class PieceHolder : MonoBehaviour
     private SpriteRenderer[] shapes;
     private Transform shape;
     private Tilemap tm;
-    private PieceData data;
+    public PieceData data;
     // Start is called before the first frame update
     public void Setup(PieceData data,Tilemap tilemap)
     {
