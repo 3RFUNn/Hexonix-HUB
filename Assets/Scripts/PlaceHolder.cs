@@ -8,7 +8,6 @@ public class PlaceHolder : MonoBehaviour
     private Vector3 _dragOffset;
     private Camera _cam;
 
-    [SerializeField] private float _speed = 100;
     private PieceHolder piece;
     private bool isDragging;
     void Awake() {
