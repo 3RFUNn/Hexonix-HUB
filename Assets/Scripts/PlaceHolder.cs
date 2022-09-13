@@ -47,4 +47,8 @@ public class PlaceHolder : MonoBehaviour
         mousePos.z = 0;
         return mousePos;
     }
+/*  public bool CheckPiecePlacement(PieceHolder p)
+    {
+
+    }*/
 }

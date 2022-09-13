@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 public class WebSpider : MonoBehaviour
 {
     // [SerializeField] private Tilemap start;
@@ -11,17 +9,13 @@ public class WebSpider : MonoBehaviour
     public GridBoard[] FindMatches()
     {
         finalRes=new List<GridBoard> ();
-        GridBoard start = GameManager.Instance.coordinate.grid[2, 0];
+        GridBoard start = GameManager.Instance.grid.grid[2, 0];
         List<GridBoard> results = new List<GridBoard>();
         results = GetVerticals(start);
         tmp2=new List<GridBoard>();
         for(int i = 0; i < results.Count; i++)
         {
             FindResultsOfFunc(FindTheTopRight, results[i]);
-        }
-        for (int i = 0; i < results.Count; i++)
-        {
-            FindResultsOfFunc(FindTheLeftTop, results[i]);
         }
         results = GetHorizontalsLeft(start, out GridBoard end);
         for (int i = 0; i < results.Count; i++)
@@ -34,11 +28,16 @@ public class WebSpider : MonoBehaviour
 
             FindResultsOfFunc(FindTheTopRight, results[i]);
         }
-        results = GetHorizontalsRight(end);
+        results = GetHorizontalsRight(end , out GridBoard end2);
         for (int i = 0; i < results.Count; i++)
         {
             FindResultsOfFunc(FindTheRight, results[i]);
         }
+        for (int i = 0; i < results.Count; i++)
+        {
+            FindResultsOfFunc(FindTheRightDown, results[i]);
+        }
+        results = GetHorizontalsTop(end2);
         for (int i = 0; i < results.Count; i++)
         {
             FindResultsOfFunc(FindTheRightDown, results[i]);
@@ -73,6 +72,18 @@ public class WebSpider : MonoBehaviour
         }
         tmp2.Clear();
     }
+    public List<GridBoard> GetHorizontalsTop(GridBoard start)
+    {
+        List<GridBoard> results = new List<GridBoard>();
+        var currentPos = start;
+        while (currentPos.Placable)
+        {
+            if (currentPos.IsFull)
+                results.Add(currentPos);
+            currentPos = FindTheRight(currentPos);
+        }
+        return results;
+    }
     public List<GridBoard> GetHorizontalsLeft(GridBoard start , out GridBoard end)
     {
         List<GridBoard> results=new List<GridBoard>();
@@ -102,68 +113,71 @@ public class WebSpider : MonoBehaviour
         return results;
     }
 
-    public List<GridBoard> GetHorizontalsRight(GridBoard start)
+    public List<GridBoard> GetHorizontalsRight(GridBoard start , out GridBoard end)
     {
         List<GridBoard> results = new List<GridBoard>();
         var currentPos = start;
+        var prev = currentPos;
         while (currentPos.Placable)
         {
             if (currentPos.IsFull)
                 results.Add(currentPos);
-            currentPos=FindTheTopRight(currentPos);
+            prev = currentPos;
+            currentPos =FindTheTopRight(currentPos);
         }
+        end = prev;
         return results;
     }
     public static GridBoard FindTheTopRight(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y+1];
+            return GameManager.Instance.grid.grid[x.X, x.Y+1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X + 1, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X + 1, x.Y + 1];
         }
     }
     public static GridBoard FindTheRight(GridBoard x)
     {
-        return GameManager.Instance.coordinate.grid[x.X + 1, x.Y];
+        return GameManager.Instance.grid.grid[x.X + 1, x.Y];
     }
     public static GridBoard FindTheRightDown(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y - 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X+1, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X+1, x.Y - 1];
         }
     }
     public static GridBoard FindTheLeftTop(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X - 1, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X - 1, x.Y + 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y + 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y + 1];
         }
     }
     public static GridBoard FindTheLeft(GridBoard x)
     {
-        return GameManager.Instance.coordinate.grid[x.X - 1, x.Y];
+        return GameManager.Instance.grid.grid[x.X - 1, x.Y];
     }
     public static GridBoard FindTheLeftDown(GridBoard x)
     {
         if (x.Y % 2 == 0)
         {
-            return GameManager.Instance.coordinate.grid[x.X - 1, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X - 1, x.Y - 1];
         }
         else
         {
-            return GameManager.Instance.coordinate.grid[x.X, x.Y - 1];
+            return GameManager.Instance.grid.grid[x.X, x.Y - 1];
         }
     }
 }

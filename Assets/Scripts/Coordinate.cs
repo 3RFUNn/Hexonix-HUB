@@ -28,7 +28,7 @@ public class Coordinate : MonoBehaviour
                 if (Tilemap.GetTile(new Vector3Int(x,y)) == cells)
                 {
                     var b = Instantiate(bgBoardOBJ, Parent.transform, true);
-                    b.Setup(true,x,y);
+                    b.Setup(true,x,y,b.transform);
                     b.transform.position = Tilemap.GetCellCenterWorld((new Vector3Int(x, y)));
                     Tilemap.SetTile(new Vector3Int(x, y), null);
                 }
