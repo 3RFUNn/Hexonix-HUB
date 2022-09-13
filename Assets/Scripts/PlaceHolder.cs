@@ -7,8 +7,6 @@ public class PlaceHolder : MonoBehaviour
 {
     private Vector3 _dragOffset;
     private Camera _cam;
-
-    [SerializeField] private float _speed = 100;
     private PieceHolder piece;
     private bool isDragging;
     void Awake() {
@@ -28,8 +26,8 @@ public class PlaceHolder : MonoBehaviour
         if (!isDragging)
             return;
         piece.transform.position = GetMousePos() + _dragOffset;
-            //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
-            
+        //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
+        
     }
 
     void OnMouseDown()

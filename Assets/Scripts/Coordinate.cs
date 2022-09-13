@@ -20,6 +20,7 @@ public class Coordinate : MonoBehaviour
     
     private void Start()
     {
+        
         grid = new GridBoard[gridSize.x, gridSize.y];
         for (int x = 0; x < gridSize.x; x++)
         {
