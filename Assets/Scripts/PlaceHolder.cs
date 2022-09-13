@@ -7,6 +7,7 @@ public class PlaceHolder : MonoBehaviour
 {
     private Vector3 _dragOffset;
     private Camera _cam;
+
     private PieceHolder piece;
     private bool isDragging;
     void Awake() {
@@ -26,8 +27,8 @@ public class PlaceHolder : MonoBehaviour
         if (!isDragging)
             return;
         piece.transform.position = GetMousePos() + _dragOffset;
-        //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
-        
+            //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
+            
     }
 
     void OnMouseDown()
@@ -52,8 +53,132 @@ public class PlaceHolder : MonoBehaviour
         mousePos.z = 0;
         return mousePos;
     }
-/*  public bool CheckPiecePlacement(PieceHolder p)
+    public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
     {
-
-    }*/
+        Vector2[] x = p.data.data;
+        for(int i = 0; i < x.Length; i++)
+        {
+            GridBoard gg;
+            if (x[i].Equals(new Vector2(0,0)))
+            {
+                if (!g.IsFull)
+                    return false;
+            }
+            if (g.Y % 2 == 0)
+            {
+                if (x[i].Equals(new Vector2(0, 1)))
+                {
+                    gg = WebSpider.FindTheTopRight(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(1, 0)))
+                {
+                    gg = WebSpider.FindTheRight(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(0, -1)))
+                {
+                    gg = WebSpider.FindTheRightDown(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(-1, 1)))
+                {
+                    gg = WebSpider.FindTheLeftTop(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(-1, 0)))
+                {
+                    gg = WebSpider.FindTheLeft(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(-1, -1)))
+                {
+                    gg = WebSpider.FindTheLeftDown(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+            }
+            else
+            {
+                if (x[i].Equals(new Vector2(1, 1)))
+                {
+                    gg = WebSpider.FindTheTopRight(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(1, 0)))
+                {
+                    gg = WebSpider.FindTheRight(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(1, -1)))
+                {
+                    gg = WebSpider.FindTheLeftDown(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(0, 1)))
+                {
+                    gg = WebSpider.FindTheLeftTop(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(-1, 0)))
+                {
+                    gg = WebSpider.FindTheLeft(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+                if (x[i].Equals(new Vector2(0, -1)))
+                {
+                    gg = WebSpider.FindTheLeftDown(g);
+                    if (!gg.IsFull)
+                    {
+                        return false;
+                    }
+                    g = gg;
+                }
+            }
+        }
+        return true;
+    }
 }
