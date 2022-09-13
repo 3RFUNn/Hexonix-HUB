@@ -58,6 +58,7 @@ public class PlaceHolder : MonoBehaviour
         Vector2[] x = p.data.data;
         for(int i = 0; i < x.Length; i++)
         {
+            GridBoard gg;
             if (x[i].Equals(new Vector2(0,0)))
             {
                 if (!g.IsFull)
@@ -67,90 +68,114 @@ public class PlaceHolder : MonoBehaviour
             {
                 if (x[i].Equals(new Vector2(0, 1)))
                 {
+                    gg = WebSpider.FindTheTopRight(g);
                     if (!WebSpider.FindTheTopRight(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(1, 0)))
                 {
+                    gg = WebSpider.FindTheRight(g);
                     if (!WebSpider.FindTheRight(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(0, -1)))
                 {
+                    gg = WebSpider.FindTheRightDown(g);
                     if (!WebSpider.FindTheRightDown(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(-1, 1)))
                 {
+                    gg = WebSpider.FindTheLeftTop(g);
                     if (!WebSpider.FindTheLeftTop(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(-1, 0)))
                 {
+                    gg = WebSpider.FindTheLeft(g);
                     if (!WebSpider.FindTheLeft(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(-1, -1)))
                 {
+                    gg = WebSpider.FindTheLeftDown(g);
                     if (!WebSpider.FindTheLeftDown(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
             }
             else
             {
                 if (x[i].Equals(new Vector2(1, 1)))
                 {
+                    gg = WebSpider.FindTheTopRight(g);
                     if (!WebSpider.FindTheTopRight(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(1, 0)))
                 {
+                    gg = WebSpider.FindTheRight(g);
                     if (!WebSpider.FindTheRight(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(1, -1)))
                 {
+                    gg = WebSpider.FindTheLeftDown(g);
                     if (!WebSpider.FindTheLeftDown(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(0, 1)))
                 {
+                    gg = WebSpider.FindTheLeftTop(g);
                     if (!WebSpider.FindTheLeftTop(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(-1, 0)))
                 {
+                    gg = WebSpider.FindTheLeft(g);
                     if (!WebSpider.FindTheLeft(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
                 if (x[i].Equals(new Vector2(0, -1)))
                 {
+                    gg = WebSpider.FindTheLeftDown(g);
                     if (!WebSpider.FindTheLeftDown(g).IsFull)
                     {
                         return false;
                     }
+                    g = gg;
                 }
             }
         }
