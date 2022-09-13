@@ -7,19 +7,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private PieceHolder Piece;
-    [SerializeField] private PieceData Data;
     [SerializeField] private PieceDatabase database;
     [SerializeField] public Coordinate grid;
 
     private void Awake()
     {
         Instance = this;
-        Piece.Setup(Data, grid.Tilemap);
     }
 
     public PieceHolder GetPiece()
     {
         var g = Instantiate(Piece);
+        g.transform.position=Vector3.zero;
         var data = database.GetData();
         g.Setup(data, grid.Tilemap);
 
