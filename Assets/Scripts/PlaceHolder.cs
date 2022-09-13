@@ -79,132 +79,31 @@ public class PlaceHolder : MonoBehaviour
     }
     public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
     {
-        Debug.Log(g.X + " " + g.Y);
         Vector2[] x = p.data.data;
-        for(int i = 0; i < x.Length; i++)
+        if (g.Y % 2 == 0)
         {
-            Debug.Log(g.X + " " + g.Y);
-            GridBoard gg=null;
-            bool condition = !g.IsFull && g.Placable;
-            if (x[i].Equals(new Vector2(0,0)))
+            for (int i = 0; i < x.Length; i++)
             {
-                if (condition)
+                GridBoard tmp = GameManager.Instance.grid.grid[
+                    g.X + (int)x[i].x, g.Y + (int)x[i].y
+                    ];
+                if (tmp.IsFull || !tmp.Placable)
+                {
                     return false;
-            }
-            if (g.Y % 2 == 0)
-            {
-                condition = !gg.IsFull && gg.Placable;
-                if (x[i].Equals(new Vector2(0, 1)))
-                {
-                    gg = WebSpider.FindTheTopRight(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }                
-
-                if (x[i].Equals(new Vector2(1, 0)))
-                {
-                    gg = WebSpider.FindTheRight(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(0, -1)))
-                {
-                    gg = WebSpider.FindTheRightDown(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(-1, 1)))
-                {
-                    gg = WebSpider.FindTheLeftTop(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(-1, 0)))
-                {
-                    gg = WebSpider.FindTheLeft(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(-1, -1)))
-                {
-                    gg = WebSpider.FindTheLeftDown(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
                 }
             }
-            else
+        }
+        else
+        {
+            GridBoard tmp = WebSpider.FindTheLeftDown(g);
+            for (int i = 0; i < x.Length; i++)
             {
-                if (x[i].Equals(new Vector2(1, 1)))
+                GridBoard tmp2 = WebSpider.FindTheTopRight(GameManager.Instance.grid.grid[
+                    tmp.X + (int)x[i].y, tmp.Y + (int)x[i].y
+                    ]);
+                if (tmp2.IsFull || !tmp2.Placable)
                 {
-                    gg = WebSpider.FindTheTopRight(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(1, 0)))
-                {
-                    gg = WebSpider.FindTheRight(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(1, -1)))
-                {
-                    gg = WebSpider.FindTheLeftDown(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(0, 1)))
-                {
-                    gg = WebSpider.FindTheLeftTop(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(-1, 0)))
-                {
-                    gg = WebSpider.FindTheLeft(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
-                }
-                if (x[i].Equals(new Vector2(0, -1)))
-                {
-                    gg = WebSpider.FindTheLeftDown(g);
-                    if (condition)
-                    {
-                        return false;
-                    }
-                    g = gg;
+                    return false;
                 }
             }
         }
