@@ -79,8 +79,6 @@ public class PlaceHolder : MonoBehaviour
             OnClickRelease(this);
         }
 
-        Debug.Log(gg);
-
     }
 
     Vector3 GetMousePos() {
