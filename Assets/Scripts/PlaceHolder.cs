@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlaceHolder : MonoBehaviour
 {
@@ -51,18 +52,7 @@ public class PlaceHolder : MonoBehaviour
 
         isDragging = false;
         var tmp = GameManager.Instance.grid.WorldPosToGridboard(piece.shapes[0].transform.position);
-        bool gg=false;
-        if (tmp != null)
-        {
-            if (tmp.Y % 2 == 1)
-            {
-                gg=CheckPiecePlacement(piece.data.fard, tmp);
-            }
-            else
-            {
-                gg=CheckPiecePlacement(piece.data, tmp);
-            }
-        }
+        bool gg = CheckPiecePlacement(piece.data, tmp);
         if (gg)
         {
             foreach (var VARIABLE in piece.shapes)
@@ -88,17 +78,37 @@ public class PlaceHolder : MonoBehaviour
     }
     public bool CheckPiecePlacement(PieceData p,GridBoard g)
     {
-        Vector2[] x = p.data;
-            for (int i = 0; i < x.Length; i++)
+        if (g != null)
+        {
+            if (g.Y % 2 == 1)
             {
-                GridBoard tmp = GameManager.Instance.grid.grid[
-                    g.X + (int)x[i].x, g.Y + (int)x[i].y
-                    ];
-                if (tmp.IsFull || !tmp.Placable)
-                {
-                    return false;
-                }
+                p = p.fard;
             }
+        }
+        else
+        {
+            return false;
+        }
+        Vector2[] x = p.data;
+        for (int i = 0; i < x.Length; i++)
+        {
+            //Debug.Log(g.X +" "+ (int)x[i].x + " " + g.Y +" "+ (int)x[i].y);
+            if(g.X + (int)x[i].x<0 || g.Y + (int)x[i].y < 0)
+            {
+                return false;
+            }
+            GridBoard tmp = GameManager.Instance.grid.grid[
+                g.X + (int)x[i].x, g.Y + (int)x[i].y
+                ];
+            if (tmp == null)
+            {
+                return false;
+            }
+            if (tmp.IsFull || !tmp.Placable)
+            {
+                return false;
+            }
+        }
         return true;
     }
 }
