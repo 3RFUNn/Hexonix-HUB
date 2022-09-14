@@ -50,8 +50,19 @@ public class PlaceHolder : MonoBehaviour
         }
 
         isDragging = false;
-        var gg = CheckPiecePlacement(piece,
-            GameManager.Instance.grid.WorldPosToGridboard(piece.shapes[0].transform.position));
+        var tmp = GameManager.Instance.grid.WorldPosToGridboard(piece.shapes[0].transform.position);
+        bool gg=false;
+        if (tmp != null)
+        {
+            if (tmp.Y % 2 == 1)
+            {
+                gg=CheckPiecePlacement(piece.data.fard, tmp);
+            }
+            else
+            {
+                gg=CheckPiecePlacement(piece.data, tmp);
+            }
+        }
         if (gg)
         {
             foreach (var VARIABLE in piece.shapes)
@@ -77,11 +88,9 @@ public class PlaceHolder : MonoBehaviour
         mousePos.z = 0;
         return mousePos;
     }
-    public bool CheckPiecePlacement(PieceHolder p,GridBoard g)
+    public bool CheckPiecePlacement(PieceData p,GridBoard g)
     {
-        Vector2[] x = p.data.data;
-        if (g.Y % 2 == 0)
-        {
+        Vector2[] x = p.data;
             for (int i = 0; i < x.Length; i++)
             {
                 GridBoard tmp = GameManager.Instance.grid.grid[
@@ -92,21 +101,6 @@ public class PlaceHolder : MonoBehaviour
                     return false;
                 }
             }
-        }
-        else
-        {
-            GridBoard tmp = WebSpider.FindTheLeftDown(g);
-            for (int i = 0; i < x.Length; i++)
-            {
-                GridBoard tmp2 = WebSpider.FindTheTopRight(GameManager.Instance.grid.grid[
-                    tmp.X + (int)x[i].y, tmp.Y + (int)x[i].y
-                    ]);
-                if (tmp2.IsFull || !tmp2.Placable)
-                {
-                    return false;
-                }
-            }
-        }
         return true;
     }
 }
