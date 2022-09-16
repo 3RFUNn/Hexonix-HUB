@@ -52,7 +52,7 @@ public class PlaceHolder : MonoBehaviour
 
         isDragging = false;
         var tmp = GameManager.Instance.grid.WorldPosToGridboard(piece.shapes[0].transform.position);
-        Debug.Log(RotatePieceClockwise(piece.data).data);
+        //Debug.Log(RotatePieceClockwise(piece.data).data);
         bool gg = CheckPiecePlacement(piece.data, tmp);
         if (gg)
         {
