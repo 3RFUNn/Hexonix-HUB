@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PieceDataBase
   m_EditorClassIdentifier: 
   datas:
-  - {fileID: 11400000, guid: d4df2f1e96bdcc34faefc1eeb6c5e8e1, type: 2}
+  - {fileID: 11400000, guid: 0c985c65362082d4b8ea7dfdd1cc6675, type: 2}
   - {fileID: 11400000, guid: f5f2d88e910fdd74ea7375e15483aa05, type: 2}
   - {fileID: 11400000, guid: d7b2d2bf36e644d41a9df875262c3e77, type: 2}
   - {fileID: 11400000, guid: f861816e423f14e4e89f72d004be61b7, type: 2}
