@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1d672c2be885a4a910f1d576be30a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 9, y: 9}
+  gridSize: {x: 15, y: 15}
   Tilemap: {fileID: 1265027589}
   cells: {fileID: 11400000, guid: 4a60060fa96d85d459c6f0a69c127f01, type: 2}
   bgBoardOBJ: {fileID: 639263320}
