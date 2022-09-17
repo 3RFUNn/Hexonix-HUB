@@ -11,7 +11,6 @@ public class PieceHolder : MonoBehaviour
     private Tilemap tm;
     public PieceData data;
 
-    // Start is called before the first frame update
     public void Setup(PieceData data,Tilemap tilemap,GameObject piecePrefab)
     {
         this.data = data;
@@ -27,9 +26,5 @@ public class PieceHolder : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    
 }
