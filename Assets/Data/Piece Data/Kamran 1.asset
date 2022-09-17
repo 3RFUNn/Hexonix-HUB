@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a245dc157d4b90a4791b1eab9f2ccac1, type: 3}
-  m_Name: Shahram
+  m_Name: Kamran 1
   m_EditorClassIdentifier: 
   data:
   - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: -1, y: -1}
+  - {x: 1, y: 1}
+  - {x: 0, y: 2}
+  - {x: -1, y: 0}
   - {x: -1, y: 1}
   weight: 1
   fard: {fileID: 11400000, guid: bee0effe4b11bea46b4d960bad260023, type: 2}
