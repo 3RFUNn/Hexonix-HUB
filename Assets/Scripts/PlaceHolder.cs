@@ -9,6 +9,7 @@ public class PlaceHolder : MonoBehaviour
 {
     public static Action<PlaceHolder>OnClicked=delegate(PlaceHolder holder) {  };
     public static Action<PlaceHolder>OnClickRelease=delegate(PlaceHolder holder) {  };
+    public static Action<PlaceHolder>OnEmpty = delegate(PlaceHolder holder) {  };
     public PieceHolder piece;
     private Vector3 _dragOffset;
     private Camera _cam;
@@ -43,6 +44,14 @@ public class PlaceHolder : MonoBehaviour
         OnClicked(this);
     }
 
+    public void SetPiece(PieceHolder piece)
+    {
+        this.piece = piece;
+        Transform PieceTransform;
+        (PieceTransform = piece.transform).SetParent(transform);
+        PieceTransform.localPosition=Vector3.zero;
+    }
+
     private void OnMouseUp()
     {
         if (!isDragging)
@@ -62,7 +71,7 @@ public class PlaceHolder : MonoBehaviour
                 g.Child = VARIABLE.transform.parent;
             }
             Destroy(piece.gameObject);
-            piece = GameManager.Instance.GetPiece();
+            OnEmpty(this);
         }
         else
         {
@@ -114,6 +123,7 @@ public class PlaceHolder : MonoBehaviour
     }
     public PieceData RotatePieceClockwise(PieceData p)
     {
+        //piece jadid :
         Vector2[] results = new Vector2[p.data.Length];
         Dictionary<Vector2,Vector2> map = new Dictionary<Vector2, Vector2>();
         int cnt = 0;
