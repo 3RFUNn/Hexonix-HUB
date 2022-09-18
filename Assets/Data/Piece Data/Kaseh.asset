@@ -18,3 +18,5 @@ MonoBehaviour:
   - {x: 1, y: 1}
   - {x: -1, y: 1}
   weight: 1
+  fard: {fileID: 11400000, guid: 9af52fb32f4f22949b9fb4367d555744, type: 2}
+  Rotation: []

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - {x: 0, y: 0}
-  - {x: 0, y: -1}
-  - {x: -1, y: -1}
+  - {x: 1, y: 0}
+  - {x: 0, y: 1}
   weight: 1
   fard: {fileID: 11400000, guid: 6b83cfe309b8dc249a2f812a6909b624, type: 2}
+  Rotation: []
