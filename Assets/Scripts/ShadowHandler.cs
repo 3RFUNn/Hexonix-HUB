@@ -35,7 +35,7 @@ public class ShadowHandler : MonoBehaviour
         }
         Destroy(a.gameObject);
         PlaceHolder.OnClicked += OnPlaceHolderClicked;
-        PlaceHolder.OnClickRelease += OnPlaceHolderReleased;
+        PlaceHolder.OnReleaseFull += OnPlaceHolderReleased;
     }
 
     void OnPlaceHolderClicked(PlaceHolder holder)

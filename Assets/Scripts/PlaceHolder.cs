@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -8,13 +10,15 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 public class PlaceHolder : MonoBehaviour
 {
     public static Action<PlaceHolder>OnClicked=delegate(PlaceHolder holder) {  };
-    public static Action<PlaceHolder>OnClickRelease=delegate(PlaceHolder holder) {  };
-    public static Action<PlaceHolder>OnEmpty = delegate(PlaceHolder holder) {  };
+    public static Action<PlaceHolder>OnReleaseFull=delegate(PlaceHolder holder) {  };
+    public static Action<PlaceHolder>OnReleaseEmpty = delegate(PlaceHolder holder) {  };
+    public static Action<PlaceHolder>OnRelease = delegate(PlaceHolder holder) {  };
     public PieceHolder piece;
     private Vector3 _dragOffset;
     private Camera _cam;
     private Tilemap tm;
     private bool isDragging;
+    private bool isPlacable;
     void Awake() {
         _cam = Camera.main;
     }
@@ -26,6 +30,8 @@ public class PlaceHolder : MonoBehaviour
         (transform1 = piece.transform).SetParent(transform);
         transform1.localPosition=Vector3.zero;
         tm = GameManager.Instance.tileMap;
+        OnRelease += OnPlaceHolderRelease;
+       isPlacable= PlacableShape();
     }
 
     private void Update()
@@ -37,11 +43,18 @@ public class PlaceHolder : MonoBehaviour
             //Vector3.MoveTowards(transform.position, GetMousePos() + _dragOffset, _speed * Time.deltaTime);
     }
 
+    void OnPlaceHolderRelease(PlaceHolder holder)
+    {
+        isPlacable= PlacableShape();
+    }
     void OnMouseDown()
     {
-        isDragging = true;
-        _dragOffset = transform.position - GetMousePos();
-        OnClicked(this);
+        if (isPlacable)
+        {
+            isDragging = true;
+            _dragOffset = transform.position - GetMousePos();
+            OnClicked(this);
+        }
     }
 
     public void SetPiece(PieceHolder piece)
@@ -71,14 +84,15 @@ public class PlaceHolder : MonoBehaviour
                 g.Child = VARIABLE.transform.parent;
             }
             Destroy(piece.gameObject);
-            OnEmpty(this);
+            OnReleaseEmpty(this);
         }
         else
         {
             piece.transform.localPosition= Vector3.zero;
-            OnClickRelease(this);
+            OnReleaseFull(this);
         }
 
+        OnRelease(this);
     }
 
     Vector3 GetMousePos() {
@@ -86,6 +100,32 @@ public class PlaceHolder : MonoBehaviour
         mousePos.z = 0;
         return mousePos;
     }
+
+    public bool PlacableShape()
+    {
+        var gridsize = GameManager.Instance.grid.gridSize;
+        var grid = GameManager.Instance.grid.grid;
+        
+        for (int i = 0; i <gridsize.x ; i++)
+        {
+            for (int j = 0; j <gridsize.y; j++)
+            {
+                if (CheckPiecePlacement(piece.data, grid[i, j]))
+                {
+                    Debug.Log("true");
+                    piece.ChangeOpticy(1);
+                    return true;
+                }
+
+            }
+            
+        }
+        piece.ChangeOpticy(0.5f);
+        Debug.Log("false");
+        return false;
+    }
+    
+    
     public bool CheckPiecePlacement(PieceData p,GridBoard g)
     {
         if (g != null)
@@ -103,14 +143,26 @@ public class PlaceHolder : MonoBehaviour
         for (int i = 0; i < x.Length; i++)
         {
             //Debug.Log(g.X +" "+ (int)x[i].x + " " + g.Y +" "+ (int)x[i].y);
-            if(g.X + (int)x[i].x<0 || g.Y + (int)x[i].y < 0)
+            if (g.X + (int) x[i].x < 0 || g.Y + (int) x[i].y < 0)
             {
                 return false;
             }
-            GridBoard tmp = GameManager.Instance.grid.grid[
-                g.X + (int)x[i].x, g.Y + (int)x[i].y
+
+            GridBoard tmp;
+            try
+            {
+                 tmp= GameManager.Instance.grid.grid[
+                    g.X + (int) x[i].x, g.Y + (int) x[i].y
                 ];
-            if (tmp == null)
+
+            }
+            catch
+            {
+//                Debug.Log("shode");
+                return false;
+            }
+
+        if (tmp == null)
             {
                 return false;
             }
@@ -120,6 +172,11 @@ public class PlaceHolder : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void Rotate()
+    {
+        //piece.data = RotatePieceClockwise(piece.data);
     }
     public PieceData RotatePieceClockwise(PieceData p)
     {

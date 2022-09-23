@@ -6,8 +6,10 @@ using UnityEngine;
 public class PieceDatabase : ScriptableObject
 {
     public PieceData[] datas;
+    [SerializeField] private Sprite[] sprites;
     [SerializeField] private float totalweight;
 
+    private int lastSpriteIndex = 0;
     void Setup()
     {
         
@@ -24,6 +26,18 @@ public class PieceDatabase : ScriptableObject
         var a = Random.Range(0, 12);
         return datas[a];
 
+    }
 
+    public Sprite GetSprite()
+    {
+        int index;
+        do
+        {
+            index = Random.Range(0, sprites.Length);
+        } while (index==lastSpriteIndex);
+
+        lastSpriteIndex = index;
+
+        return sprites[index];
     }
 }

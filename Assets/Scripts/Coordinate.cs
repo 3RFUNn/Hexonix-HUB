@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Coordinate : MonoBehaviour
 {
-    [SerializeField] private Vector2Int gridSize;
+    [field: SerializeField] public Vector2Int gridSize { get; private set; }
     [SerializeField] public Tilemap Tilemap;
     [SerializeField] private Tile cells;
     [SerializeField] private GridBoard bgBoardOBJ;
