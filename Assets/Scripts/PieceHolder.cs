@@ -11,7 +11,7 @@ public class PieceHolder : MonoBehaviour
     private Tilemap tm;
     public PieceData data;
 
-    public void Setup(PieceData data,Tilemap tilemap,GameObject piecePrefab)
+    public void Setup(PieceData data,Tilemap tilemap,GameObject piecePrefab,Sprite sprite)
     {
         this.data = data;
         tm = tilemap;
@@ -23,8 +23,19 @@ public class PieceHolder : MonoBehaviour
             shape.name = string.Format("{0}:{1}", data.data[i].x, data.data[i].y);
             shape.transform.position = ti;
             shapes[i] = shape.GetChild(0).GetComponent<SpriteRenderer>();
+            shapes[i].sprite = sprite;
         }
 
     }
-    
+
+    public void ChangeOpticy(float amount)
+    {
+        foreach (var VARIABLE in shapes)
+        {
+            var c = VARIABLE.color;
+            c.a = amount;
+            VARIABLE.color = c;
+        }
+    }
+
 }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PieceDatabase database;
     [SerializeField] public Coordinate grid;
     [SerializeField] public GameObject cellPrefab;
+    [SerializeField] public GridBoard GridBoard;
     public Tilemap tileMap;
 
     private void Awake()
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
         var g = Instantiate(Piece);
         g.transform.position=Vector3.zero;
         var data = database.GetData();
-        g.Setup(data, grid.Tilemap,cellPrefab);
+        g.Setup(data, grid.Tilemap,cellPrefab,database.GetSprite());
         return g;
     }
 
