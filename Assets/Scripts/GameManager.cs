@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private PieceHolder Piece;
-    [SerializeField] private PieceDatabase database;
+    [field:SerializeField] public PieceDatabase database { get; private set; }
     [SerializeField] public Coordinate grid;
     [SerializeField] public GameObject cellPrefab;
     [SerializeField] public GridBoard GridBoard;

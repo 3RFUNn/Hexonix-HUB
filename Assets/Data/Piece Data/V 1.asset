@@ -20,4 +20,4 @@ MonoBehaviour:
   - {x: -1, y: 2}
   weight: 1
   fard: {fileID: 0}
-  Rotation: []
+  Temp: {fileID: 0}
