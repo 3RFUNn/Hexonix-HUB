@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Piece: {fileID: 8584093274452645745, guid: 92a69f66c87466e4999d724fc61bf551, type: 3}
-  database: {fileID: 11400000, guid: d543cc62649455747b33d0be0f934ffb, type: 2}
+  <database>k__BackingField: {fileID: 11400000, guid: d543cc62649455747b33d0be0f934ffb, type: 2}
   grid: {fileID: 705874463}
   cellPrefab: {fileID: 4461115284954775788, guid: 51fa24e1c1114bd48bd3fe8739c0405d, type: 3}
   GridBoard: {fileID: 639263320}

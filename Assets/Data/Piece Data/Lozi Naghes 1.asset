@@ -18,3 +18,4 @@ MonoBehaviour:
   - {x: -1, y: 0}
   weight: 1
   fard: {fileID: 0}
+  Temp: {fileID: 0}

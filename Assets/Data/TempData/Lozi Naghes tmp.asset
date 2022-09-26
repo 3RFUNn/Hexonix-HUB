@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a245dc157d4b90a4791b1eab9f2ccac1, type: 3}
-  m_Name: Kamran
+  m_Name: Lozi Naghes tmp
   m_EditorClassIdentifier: 
   data:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
   - {x: -1, y: 0}
-  - {x: 0, y: 2}
-  - {x: -2, y: 1}
   weight: 1
-  fard: {fileID: 11400000, guid: c01970778f6489f41a25e48a07a329fc, type: 2}
+  fard: {fileID: 11400000, guid: 34ec206080a445a489b2f9cba12c0d75, type: 2}
+  Temp: []

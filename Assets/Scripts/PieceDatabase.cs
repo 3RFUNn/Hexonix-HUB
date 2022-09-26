@@ -40,4 +40,5 @@ public class PieceDatabase : ScriptableObject
 
         return sprites[index];
     }
+    
 }
