@@ -20,4 +20,4 @@ MonoBehaviour:
   - {x: -1, y: 1}
   weight: 1
   fard: {fileID: 11400000, guid: ee2de89076f399442af29e1ef2df724e, type: 2}
-  Temp: {fileID: 0}
+  Temp: {fileID: 11400000, guid: 58b198fe383399346b1dfc5bdeb00c2b, type: 2}

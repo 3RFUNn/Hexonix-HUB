@@ -175,27 +175,33 @@ public class PlaceHolder : MonoBehaviour
         }
         return true;
     }
-    public void Rotate()
-    {
-        
-        if (!(piece.data == GameManager.Instance.database.datas[1] ||
-              piece.data == GameManager.Instance.database.datas[3]))
-        {
-            piece.data.Temp = RotatePieceClockwise(piece.data.Temp);
-            piece.data.fard.Temp = RotatePieceClockwise(piece.data.fard.Temp);
-        }
-    }
+    // public void Rotate()
+    // {
+    //     
+    //     if (!(piece.data == GameManager.Instance.database.datas[1] ||
+    //           piece.data == GameManager.Instance.database.datas[3]))
+    //     {
+    //         piece.data.Temp = RotatePieceClockwise(piece.data.Temp);
+    //         piece.data.fard.Temp = RotatePieceClockwise(piece.data.fard.Temp);
+    //     }
+    // }
 
     public void RotationSetup()
     {
         var a = GameManager.Instance.database.datas;
         for (int i = 0; i < a.Length; i++)
         {
-            a[i].Temp.data = a[i].data;
-            a[i].Temp.fard.data = a[i].fard.data;
+            for (int j = 0; j < 6; j++)
+            {
+                if(j == 0)
+                {
+                    a[i].RotationData[j] = a[i].data;
+                    a[i].fard.RotationData[j] = a[i].fard.data;
+                }
+            }
         }
     }
-    public PieceData RotatePieceClockwise(PieceData p)
+    public Vector2[] RotatePieceClockwise(PieceData p)
     {
         //piece jadid :
         Vector2[] results = new Vector2[p.data.Length];
@@ -290,8 +296,7 @@ public class PlaceHolder : MonoBehaviour
                 //Debug.Log("all that while vec is " + vec);
             }
         }
-        p.data = results;
-        return p;
+        return results;
     }
     public static Vector2 FindTheTopRight(Vector2 x)
     {
