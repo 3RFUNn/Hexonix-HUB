@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,5 @@ public class PieceData : ScriptableObject
     public float weight = 1;
     public PieceData fard;
     public PieceData Temp;
-    public Vector2[][] RotationData;
-    
+    public Vector2[,] RotationData;
 }

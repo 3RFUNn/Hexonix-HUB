@@ -175,28 +175,36 @@ public class PlaceHolder : MonoBehaviour
         }
         return true;
     }
-    // public void Rotate()
-    // {
-    //     
-    //     if (!(piece.data == GameManager.Instance.database.datas[1] ||
-    //           piece.data == GameManager.Instance.database.datas[3]))
-    //     {
-    //         piece.data.Temp = RotatePieceClockwise(piece.data.Temp);
-    //         piece.data.fard.Temp = RotatePieceClockwise(piece.data.fard.Temp);
-    //     }
-    // }
+    public void Rotate()
+    {
+        
+        if (!(piece.data == GameManager.Instance.database.datas[1] ||
+              piece.data == GameManager.Instance.database.datas[3]))
+        {
+            
+        }
+    }
 
+    
     public void RotationSetup()
     {
         var a = GameManager.Instance.database.datas;
+        
         for (int i = 0; i < a.Length; i++)
         {
+            a[i].RotationData = new Vector2[6, a[i].data.Length];
             for (int j = 0; j < 6; j++)
             {
-                if(j == 0)
+                a[i].Temp.data = RotatePieceClockwise(a[i].Temp);
+                a[i].fard.Temp.data = RotatePieceClockwise(a[i].fard.Temp);
+                for (int k = 0; k < a[i].data.Length; k++)
                 {
-                    a[i].RotationData[j] = a[i].data;
-                    a[i].fard.RotationData[j] = a[i].fard.data;
+                    {
+                        
+                        a[i].RotationData[j,k] = a[i].Temp.data[k];
+                        a[i].fard.RotationData[j,k] = a[i].Temp.fard.data[k];
+                    }
+                    
                 }
             }
         }
