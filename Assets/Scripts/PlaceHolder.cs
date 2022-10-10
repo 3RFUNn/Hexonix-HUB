@@ -199,6 +199,12 @@ public class PlaceHolder : MonoBehaviour
     public Vector2[] RotatePieceClockwise(Vector2[] data)
     {
         //piece jadid :
+
+        Dictionary<Vector2, int> map2 = new Dictionary<Vector2, int>();
+        for(int i=0; i < data.Length; i++)
+        {
+            map2.Add(data[i], i);
+        }
         Vector2[] results = new Vector2[data.Length];
         Dictionary<Vector2,Vector2> map = new Dictionary<Vector2, Vector2>();
         int cnt = 0;
@@ -291,7 +297,12 @@ public class PlaceHolder : MonoBehaviour
                 //Debug.Log("all that while vec is " + vec);
             }
         }
-        return results;
+        Vector2[] results2 = new Vector2[results.Length];
+        foreach(Vector2 vec in results)
+        {
+            results2[map2[map[vec]]] = vec;
+        }
+        return results2;
     }
     public static Vector2 FindTheTopRight(Vector2 x)
     {
