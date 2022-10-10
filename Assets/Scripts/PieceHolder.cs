@@ -14,6 +14,8 @@ public class PieceHolder : MonoBehaviour
     public void Setup(PieceData data,Tilemap tilemap,GameObject piecePrefab,Sprite sprite)
     {
         this.data = data;
+        this.data.fard.Temp = data.fard.data;
+        this.data.Temp = this.data.data;
         tm = tilemap;
         shapes = new SpriteRenderer[data.data.Length];
         for (int i = 0; i < data.data.Length; i++)
