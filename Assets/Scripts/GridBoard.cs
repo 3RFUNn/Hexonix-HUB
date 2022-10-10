@@ -9,7 +9,7 @@ public class GridBoard : MonoBehaviour
     [field:SerializeField] public int X { get;private set; }
     [field:SerializeField] public int Y { get;private set; }
     [field:SerializeField] public Transform Transform { get;private set; }
-    [SerializeField] public bool IsFull=> Child!=null;
+    [field:SerializeField] public bool IsFull => Child!=null;
     public Transform Child { get
         {
             return _child;
