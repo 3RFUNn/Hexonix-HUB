@@ -19,4 +19,8 @@ MonoBehaviour:
   - {x: -1, y: -1}
   weight: 1
   fard: {fileID: 11400000, guid: 87eb6126eec6f814695c13a7e0173772, type: 2}
-  Temp: {fileID: 11400000, guid: 2208174631acb234c879da73ddb2a4d5, type: 2}
+  Temp:
+  - {x: 0, y: 0}
+  - {x: -1, y: 1}
+  - {x: 0, y: -1}
+  - {x: -1, y: -1}

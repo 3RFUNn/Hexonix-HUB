@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -16,6 +17,7 @@ public class PlaceHolder : MonoBehaviour
     public PieceHolder piece;
     private Vector3 _dragOffset;
     private Camera _cam;
+    private PlaceHolder place;
     private Tilemap tm;
     private bool isDragging;
     private bool isPlacable;
@@ -31,8 +33,8 @@ public class PlaceHolder : MonoBehaviour
         transform1.localPosition=Vector3.zero;
         tm = GameManager.Instance.tileMap;
         OnRelease += OnPlaceHolderRelease;
-       isPlacable= PlacableShape();
-       RotationSetup();
+       isPlacable = PlacableShape();
+       
        
     }
 
@@ -47,7 +49,7 @@ public class PlaceHolder : MonoBehaviour
 
     void OnPlaceHolderRelease(PlaceHolder holder)
     {
-        isPlacable= PlacableShape();
+        isPlacable = PlacableShape();
     }
     void OnMouseDown()
     {
@@ -84,6 +86,7 @@ public class PlaceHolder : MonoBehaviour
             {
                 var g = GameManager.Instance.grid.WorldPosToGridboard(VARIABLE.transform.position);
                 g.Child = VARIABLE.transform.parent;
+                Debug.Log(g.Child);
             }
             Destroy(piece.gameObject);
             OnReleaseEmpty(this);
@@ -141,7 +144,7 @@ public class PlaceHolder : MonoBehaviour
         {
             return false;
         }
-        Vector2[] x = p.data;
+        Vector2[] x = p.Temp;
         for (int i = 0; i < x.Length; i++)
         {
             //Debug.Log(g.X +" "+ (int)x[i].x + " " + g.Y +" "+ (int)x[i].y);
@@ -175,57 +178,41 @@ public class PlaceHolder : MonoBehaviour
         }
         return true;
     }
+    
+    public void Rotator()
+    {
+        piece.transform.Rotate(0,0,60f);
+        isPlacable = PlacableShape();
+    }
     public void Rotate()
     {
-        
-        if (!(piece.data == GameManager.Instance.database.datas[1] ||
-              piece.data == GameManager.Instance.database.datas[3]))
-        {
-            
-        }
-    }
+          
+            piece.data.Temp = RotatePieceClockwise(piece.data.Temp);
+            piece.data.fard.Temp = RotatePieceClockwise(piece.data.fard.Temp);
+            Rotator();
+            //ShapeChanger();
+            Debug.Log("rotate");
 
-    
-    public void RotationSetup()
-    {
-        var a = GameManager.Instance.database.datas;
         
-        for (int i = 0; i < a.Length; i++)
-        {
-            a[i].RotationData = new Vector2[6, a[i].data.Length];
-            for (int j = 0; j < 6; j++)
-            {
-                a[i].Temp.data = RotatePieceClockwise(a[i].Temp);
-                a[i].fard.Temp.data = RotatePieceClockwise(a[i].fard.Temp);
-                for (int k = 0; k < a[i].data.Length; k++)
-                {
-                    {
-                        
-                        a[i].RotationData[j,k] = a[i].Temp.data[k];
-                        a[i].fard.RotationData[j,k] = a[i].Temp.fard.data[k];
-                    }
-                    
-                }
-            }
-        }
     }
-    public Vector2[] RotatePieceClockwise(PieceData p)
+    
+    public Vector2[] RotatePieceClockwise(Vector2[] data)
     {
         //piece jadid :
-        Vector2[] results = new Vector2[p.data.Length];
+        Vector2[] results = new Vector2[data.Length];
         Dictionary<Vector2,Vector2> map = new Dictionary<Vector2, Vector2>();
         int cnt = 0;
         Vector2 current;
         Queue<Vector2> queue = new Queue<Vector2>();
-        queue.Enqueue(p.data[0]);
-        results[cnt] = p.data[0];
+        queue.Enqueue(data[0]);
+        results[cnt] = data[0];
         cnt++;
-        map.Add(p.data[0], p.data[0]);
+        map.Add(data[0], data[0]);
         while(queue.Count>0)
         {
             current=queue.Dequeue();
             //Debug.LogWarning("current is :" + current);
-            foreach(Vector2 vec in p.data)
+            foreach(Vector2 vec in data)
             {
                 if (vec.Equals(current))
                 {

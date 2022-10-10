@@ -11,6 +11,6 @@ public class PieceData : ScriptableObject
     public Vector2[] data;
     public float weight = 1;
     public PieceData fard;
-    public PieceData Temp;
+    public Vector2[] Temp;
     public Vector2[,] RotationData;
 }
