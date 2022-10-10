@@ -1,6 +1,8 @@
 
+using System;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Piece Database")]
 public class PieceDatabase : ScriptableObject
@@ -10,6 +12,9 @@ public class PieceDatabase : ScriptableObject
     [SerializeField] private float totalweight;
 
     private int lastSpriteIndex = 0;
+
+    
+
     void Setup()
     {
         
