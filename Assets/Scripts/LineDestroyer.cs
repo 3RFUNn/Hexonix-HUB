@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class LineDestroyer : MonoBehaviour
 {
+    public void LineChecker()
+    {
+        
+    }
+
+    public void Line_Destroyer()
+    {
+        
+    }
+    
     
 }
