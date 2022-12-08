@@ -203,6 +203,11 @@ public class PlaceHolder : MonoBehaviour
         Dictionary<Vector2, int> map2 = new Dictionary<Vector2, int>();
         for(int i=0; i < data.Length; i++)
         {
+            if (map2.ContainsKey(data[i]))
+            {
+                map2[data[i]] = i;
+                continue;
+            }
             map2.Add(data[i], i);
         }
         Vector2[] results = new Vector2[data.Length];
