@@ -28,8 +28,8 @@ public class PieceDatabase : ScriptableObject
 
     public PieceData GetData()
     {
-        var a = Random.Range(0, 12);
-        return datas[a];
+        //var a = Random.Range(0, 12);
+        return datas[6];
 
     }
 

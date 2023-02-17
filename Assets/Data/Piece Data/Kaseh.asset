@@ -21,6 +21,6 @@ MonoBehaviour:
   fard: {fileID: 11400000, guid: 9af52fb32f4f22949b9fb4367d555744, type: 2}
   Temp:
   - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: -1, y: 0}
-  - {x: 0, y: 2}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}

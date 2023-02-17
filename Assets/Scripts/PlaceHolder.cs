@@ -203,10 +203,17 @@ public class PlaceHolder : MonoBehaviour
         Dictionary<Vector2, int> map2 = new Dictionary<Vector2, int>();
         for(int i=0; i < data.Length; i++)
         {
+            if (map2.ContainsKey(data[i]))
+            {
+                map2[data[i]] = i;
+                continue;
+            }
             map2.Add(data[i], i);
         }
         Vector2[] results = new Vector2[data.Length];
         Dictionary<Vector2,Vector2> map = new Dictionary<Vector2, Vector2>();
+        Dictionary<Vector2,Vector2> map3 = new Dictionary<Vector2, Vector2>();
+        map3.Add(data[0],data[0]);
         int cnt = 0;
         Vector2 current;
         Queue<Vector2> queue = new Queue<Vector2>();
@@ -232,6 +239,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheLeftTop(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                         //Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -243,6 +251,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheLeft(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                        // Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -258,6 +267,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheLeftDown(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                         //Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -269,6 +279,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheRightDown(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                         //Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -280,6 +291,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheRight(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                         //Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -291,6 +303,7 @@ public class PlaceHolder : MonoBehaviour
                         results[cnt] = FindTheTopRight(map[current]);
                         cnt++;
                         map.Add(vec, results[cnt - 1]);
+                        map3.Add(results[cnt - 1], vec);
                         //Debug.Log(results[cnt - 1] + "  " + (cnt - 1) + "  " + vec);
                     }
                 }
@@ -300,7 +313,7 @@ public class PlaceHolder : MonoBehaviour
         Vector2[] results2 = new Vector2[results.Length];
         foreach(Vector2 vec in results)
         {
-            results2[map2[map[vec]]] = vec;
+            results2[map2[map3[vec]]] = vec;
         }
         return results2;
     }
